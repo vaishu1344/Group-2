@@ -1,1 +1,48 @@
+import pandas as pd
+import re
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+import nltk
 
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+# Load the dataset
+df = pd.read_csv('labeled_dataset.csv')
+print(df.head())
+# Remove duplicates
+df = df.drop_duplicates()
+
+# Handle missing values
+df = df.dropna()
+
+df = df.drop(columns=['count'])
+# Normalize text
+def normalize_text(text):
+    text = text.lower()
+    text = re.sub(r'http\S+', '', text)
+    text = re.sub(r'@\w+', '', text)
+    text = re.sub(r'#\w+', '', text)
+    text = re.sub(r'&', 'and', text)
+    text = re.sub(r'[^a-z\s]', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+df['tweet'] = df['tweet'].apply(normalize_text)
+
+# Tokenization
+df['tweet_tokens'] = df['tweet'].apply(word_tokenize)
+
+# Remove stopwords
+stop_words = set(stopwords.words('english'))
+df['tweet_tokens'] = df['tweet_tokens'].apply(lambda x: [word for word in x if word not in stop_words])
+
+# Lemmatization
+lemmatizer = WordNetLemmatizer()
+df['tweet_tokens'] = df['tweet_tokens'].apply(lambda x: [lemmatizer.lemmatize(word) for word in x])
+# Verify and clean columns
+df = df[['hate_speech', 'offensive_language', 'neither', 'class', 'tweet']]
+print(df.head())
+# Save cleaned data
+df.to_csv('cleaned_dataset.csv', index=False)

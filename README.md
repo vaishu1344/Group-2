@@ -99,6 +99,13 @@ The architecture of CNNs is inspired by the visual processing in the human brain
 
 The F1 score is the harmonic mean of precision and recall, providing a single metric to assess the balance between the two.<br>
 
+F1 Scores Achieved Using Convolutional Neural Networks (CNN):
+
+
+Class 0 (Hate Speech): 0.96
+
+Class 1(Non Hate Speech): 0.80
+
 
 
 

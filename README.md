@@ -1,6 +1,6 @@
 
 <h1><b> Hate Speech Detection on Twitter platform</b></h1><br>
-<h1>Group - 2 </h1><br>
+
 <h3>Problem Statement</h3>
 In today's digital age, hate speech on online platforms is a growing concern that impacts individuals and communities globally. Social media platform like Twitter host billions of users who generate a vast amount of content daily. The business problem we are addressing is the need for an efficient, scalable, and accurate system to automatically detect and mitigate hate speech in user-generated content on Twitter platform
 <br>
